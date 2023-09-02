@@ -106,7 +106,7 @@ a {
     background-color: blue;
     /* 按钮button默认有个边框需要我们手动去掉 */
     border: 0;
-    background: url(学成images/search.png);
+    background: url(search.png);
 }
 
 .user {
@@ -125,7 +125,7 @@ a {
 
 .banner .w {
     height: 421px;
-    background: url(学成images/banner2.png) no-repeat top center;
+    background: url(banner2.png) no-repeat top center;
 }
 
 .subnav {
