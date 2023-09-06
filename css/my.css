@@ -12,3 +12,12 @@
         font-size: 1.5rem;
     }
 }
+@media only screen and (min-width: 768px) {
+      .row .col.m6 {
+        width:31.36275%; /* 每行显示三个盒子*/
+      }
+      .row .col.m6:nth-child(3n) {
+         margin-right: 0; /* 取消每行最后一个文章模块的右边距 */
+      }
+
+  }
