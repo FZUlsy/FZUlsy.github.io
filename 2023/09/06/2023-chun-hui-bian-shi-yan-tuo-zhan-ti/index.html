@@ -7,6 +7,7 @@
 
 
 <head>
+    
     <meta charset="utf-8">
     <meta name="keywords" content="2023春汇编实验（拓展题）, Lurume">
     <meta name="description" content="这是一位FZUer的个人博客">
@@ -30,6 +31,8 @@
     <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <link rel="stylesheet" type="text/css" href="/css/loading.css">
+
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
@@ -49,6 +52,30 @@
             
 
                 <body>
+                    
+    <div id="loading-box">
+      <div class="loading-left-bg"></div>
+      <div class="loading-right-bg"></div>
+      <div class="spinner-box">
+        <div class="configure-border-1">
+          <div class="configure-core"></div>
+        </div>
+        <div class="configure-border-2">
+          <div class="configure-core"></div>
+        </div>
+        <div class="loading-word">加载中...</div>
+      </div>
+    </div>
+    <!-- 页面加载动画 -->
+    <script>
+      $(document).ready(function () {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      })
+    </script>
+  
+  
+
                     <svg aria-hidden="true" style="position: absolute; overflow: hidden; width: 0; height: 0">
                         <symbol id="icon-sun" viewBox="0 0 1024 1024">
                           <path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path>
@@ -448,7 +475,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    689
+                    706
                 </div>
                 
 
@@ -481,18 +508,202 @@
                 <ol>
 <li>删除一批数据中的重复数据，删除后的一批数据是互不相同的。</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">include irvine32.inc</span><br><span class="line">.data</span><br><span class="line">	dat word 1,2,4,3,2,1</span><br><span class="line">	p word 6 dup(?)</span><br><span class="line">.code</span><br><span class="line">main proc</span><br><span class="line">	mov ecx,6</span><br><span class="line">	mov edx,0</span><br><span class="line">	mov edi,0</span><br><span class="line">again1:</span><br><span class="line">	mov esi,0</span><br><span class="line">	mov ax,word ptr dat[edi*2]</span><br><span class="line">again2:</span><br><span class="line">	cmp ax,word ptr p[esi*2]</span><br><span class="line">	jz next</span><br><span class="line">	inc esi</span><br><span class="line">	cmp esi,edx</span><br><span class="line">	jl again2</span><br><span class="line">	mov word ptr p[edx*2],ax</span><br><span class="line">	inc edx</span><br><span class="line">next:</span><br><span class="line">	inc edi</span><br><span class="line">	cmp edi,ecx</span><br><span class="line">	jnz again1</span><br><span class="line">	mov esi,0</span><br><span class="line">pt:</span><br><span class="line">	movzx eax,p[esi*2]</span><br><span class="line">	call writeint</span><br><span class="line">	call crlf</span><br><span class="line">	inc esi</span><br><span class="line">	cmp esi,edx</span><br><span class="line">	jnz pt</span><br><span class="line">	</span><br><span class="line">	exit</span><br><span class="line">	main endp</span><br><span class="line">	end main</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">include irvine32.inc
+.data
+	dat word 1,2,4,3,2,1
+	p word 6 dup(?)
+.code
+main proc
+	mov ecx,6
+	mov edx,0
+	mov edi,0
+again1:
+	mov esi,0
+	mov ax,word ptr dat[edi*2]
+again2:
+	cmp ax,word ptr p[esi*2]
+	jz next
+	inc esi
+	cmp esi,edx
+	jl again2
+	mov word ptr p[edx*2],ax
+	inc edx
+next:
+	inc edi
+	cmp edi,ecx
+	jnz again1
+	mov esi,0
+pt:
+	movzx eax,p[esi*2]
+	call writeint
+	call crlf
+	inc esi
+	cmp esi,edx
+	jnz pt
+	
+	exit
+	main endp
+	end main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ol start="2">
 <li>有一批互不相同的有符号数，求出其中两数和的绝对值的最大值，要求输出最大值，以及这两个数。<br> 第一种（全正或全负）：5, 3, 2, 6, 1，和绝对值最大值是11，两个数是5, 6<br> 第二种（有负有正）：-3，2，-2，-4, 1, 5，和绝对值最大值是7，两个数：-3，-4及2，5</li>
 </ol>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">此代码有所缺陷，只能输出一组。如果有两组等大的，可以排序后比较头两位和尾两位的和的绝对值，如果等大则两组都输出。（我懒得改了</span><br><span class="line">include irvine32.inc</span><br><span class="line">.data</span><br><span class="line">	dat dword 5,3,2,6,1</span><br><span class="line">	max dword 0</span><br><span class="line">	x dword ?</span><br><span class="line">	y dword ?</span><br><span class="line">	count dword ?</span><br><span class="line">.code</span><br><span class="line">main proc</span><br><span class="line">	mov ecx,lengthof dat</span><br><span class="line">	mov count,ecx</span><br><span class="line">	mov ecx,0</span><br><span class="line">again1:</span><br><span class="line">	mov eax,dat[ecx*4]</span><br><span class="line">	inc ecx</span><br><span class="line">	cmp ecx,count</span><br><span class="line">	jz pt</span><br><span class="line">	mov esi,ecx</span><br><span class="line">again2:</span><br><span class="line">	mov edx,dat[esi*4]</span><br><span class="line">	add edx,eax</span><br><span class="line">	cmp edx,0</span><br><span class="line">	jg cpare</span><br><span class="line">	neg edx</span><br><span class="line">cpare:</span><br><span class="line">	cmp edx,max</span><br><span class="line">	jle next</span><br><span class="line">	mov max,edx</span><br><span class="line">	mov edx,dat[esi*4]</span><br><span class="line">	mov x,edx</span><br><span class="line">	mov y,eax</span><br><span class="line">next:</span><br><span class="line">	inc esi</span><br><span class="line">	cmp esi,count</span><br><span class="line">	jnz again2</span><br><span class="line">	cmp esi,count</span><br><span class="line">	jz again1</span><br><span class="line">pt:</span><br><span class="line">	mov eax,max</span><br><span class="line">	call writeint</span><br><span class="line">	call crlf</span><br><span class="line">	mov eax,x</span><br><span class="line">	call writeint</span><br><span class="line">	call crlf</span><br><span class="line">	mov eax,y</span><br><span class="line">	call writeint</span><br><span class="line">	</span><br><span class="line">	exit</span><br><span class="line">	main endp</span><br><span class="line">	end main</span><br></pre></td></tr></table></figure>
+  <pre class="line-numbers language-none"><code class="language-none">此代码有所缺陷，只能输出一组。如果有两组等大的，可以排序后比较头两位和尾两位的和的绝对值，如果等大则两组都输出。（我懒得改了
+include irvine32.inc
+.data
+	dat dword 5,3,2,6,1
+	max dword 0
+	x dword ?
+	y dword ?
+	count dword ?
+.code
+main proc
+	mov ecx,lengthof dat
+	mov count,ecx
+	mov ecx,0
+again1:
+	mov eax,dat[ecx*4]
+	inc ecx
+	cmp ecx,count
+	jz pt
+	mov esi,ecx
+again2:
+	mov edx,dat[esi*4]
+	add edx,eax
+	cmp edx,0
+	jg cpare
+	neg edx
+cpare:
+	cmp edx,max
+	jle next
+	mov max,edx
+	mov edx,dat[esi*4]
+	mov x,edx
+	mov y,eax
+next:
+	inc esi
+	cmp esi,count
+	jnz again2
+	cmp esi,count
+	jz again1
+pt:
+	mov eax,max
+	call writeint
+	call crlf
+	mov eax,x
+	call writeint
+	call crlf
+	mov eax,y
+	call writeint
+	
+	exit
+	main endp
+	end main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  3、从键盘输入两个非0的无符号数，要求用子程序实现<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%B1%82%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%9A%84%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0&spm=1001.2101.3001.7020">求两个数的最大公约数</a>和最小公倍数。</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">include irvine32.inc</span><br><span class="line">.data</span><br><span class="line">	x dd ?</span><br><span class="line">	y dd ?</span><br><span class="line">	max dd ?</span><br><span class="line">	min dd ?</span><br><span class="line">.code</span><br><span class="line">main proc</span><br><span class="line">	call readint</span><br><span class="line">	mov x,eax</span><br><span class="line">	call readint</span><br><span class="line">	mov y,eax</span><br><span class="line">	</span><br><span class="line">	push x</span><br><span class="line">	push y</span><br><span class="line">	push offset max</span><br><span class="line">	push offset min</span><br><span class="line">	call mpublic</span><br><span class="line">	</span><br><span class="line">	mov eax,max</span><br><span class="line">	call writeint</span><br><span class="line">	call crlf</span><br><span class="line">	mov eax,min</span><br><span class="line">	call writeint</span><br><span class="line">	exit</span><br><span class="line">	main endp</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">mpublic proc</span><br><span class="line">	push ebp</span><br><span class="line">	mov ebp,esp</span><br><span class="line">	push eax</span><br><span class="line">	push ecx</span><br><span class="line">	push edx</span><br><span class="line">	push ebx</span><br><span class="line"> </span><br><span class="line">	mov eax,dword ptr [ebp+20]	;x的值</span><br><span class="line">	mov ecx,dword ptr [ebp+16]	;y的值</span><br><span class="line">	mov edx,dword ptr [ebp+12]	;max的地址</span><br><span class="line">	mov ebx,dword ptr [ebp+8]	;min的地址</span><br><span class="line">again:</span><br><span class="line">	cmp eax,ecx</span><br><span class="line">	ja next</span><br><span class="line">	xchg eax,ecx</span><br><span class="line">next:</span><br><span class="line">	sub eax,ecx</span><br><span class="line">	cmp eax,0</span><br><span class="line">	jnz again</span><br><span class="line">	mov [edx],ecx</span><br><span class="line">	</span><br><span class="line">	mov eax,[ebp+20]</span><br><span class="line">	mov ecx,[ebp+16]</span><br><span class="line">	mul cl		;x*y</span><br><span class="line">	mov ecx,[edx]</span><br><span class="line">	div cl		;x*y/max</span><br><span class="line">	mov [ebx],eax</span><br><span class="line"> </span><br><span class="line">	pop ebx</span><br><span class="line">	pop edx</span><br><span class="line">	pop ecx</span><br><span class="line">	pop eax</span><br><span class="line">	pop ebp</span><br><span class="line">	ret 16</span><br><span class="line">	mpublic endp</span><br><span class="line">end main</span><br></pre></td></tr></table></figure>
+  <pre class="line-numbers language-none"><code class="language-none">include irvine32.inc
+.data
+	x dd ?
+	y dd ?
+	max dd ?
+	min dd ?
+.code
+main proc
+	call readint
+	mov x,eax
+	call readint
+	mov y,eax
+	
+	push x
+	push y
+	push offset max
+	push offset min
+	call mpublic
+	
+	mov eax,max
+	call writeint
+	call crlf
+	mov eax,min
+	call writeint
+	exit
+	main endp
+ 
+ 
+mpublic proc
+	push ebp
+	mov ebp,esp
+	push eax
+	push ecx
+	push edx
+	push ebx
+ 
+	mov eax,dword ptr [ebp+20]	;x的值
+	mov ecx,dword ptr [ebp+16]	;y的值
+	mov edx,dword ptr [ebp+12]	;max的地址
+	mov ebx,dword ptr [ebp+8]	;min的地址
+again:
+	cmp eax,ecx
+	ja next
+	xchg eax,ecx
+next:
+	sub eax,ecx
+	cmp eax,0
+	jnz again
+	mov [edx],ecx
+	
+	mov eax,[ebp+20]
+	mov ecx,[ebp+16]
+	mul cl		;x*y
+	mov ecx,[edx]
+	div cl		;x*y&#x2F;max
+	mov [ebx],eax
+ 
+	pop ebx
+	pop edx
+	pop ecx
+	pop eax
+	pop ebp
+	ret 16
+	mpublic endp
+end main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>  4、从键盘输入字符串，查找是否包含指定子字符串’abc’</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">include irvine32.inc</span><br><span class="line">.data</span><br><span class="line">	dat byte 10 dup(?)</span><br><span class="line">	count dword ?</span><br><span class="line">.code</span><br><span class="line">main proc</span><br><span class="line">	mov edi,0</span><br><span class="line">	lea edx,dat</span><br><span class="line">	mov ecx,10</span><br><span class="line">	call readstring</span><br><span class="line">	mov count,eax</span><br><span class="line">	mov esi,0</span><br><span class="line"> </span><br><span class="line">again:</span><br><span class="line">	mov ecx,esi</span><br><span class="line">	cmp dat[ecx],61h</span><br><span class="line">	jnz next</span><br><span class="line">	inc ecx</span><br><span class="line">	cmp dat[ecx],62h</span><br><span class="line">	jnz next</span><br><span class="line">	inc ecx</span><br><span class="line">	cmp dat[ecx],63h</span><br><span class="line">	jnz next</span><br><span class="line">	inc edi</span><br><span class="line">	jmp pt</span><br><span class="line">next:</span><br><span class="line">	inc esi</span><br><span class="line">	cmp esi,count</span><br><span class="line">	jnz again</span><br><span class="line">pt:</span><br><span class="line">	mov eax,edi</span><br><span class="line">	call writeint</span><br><span class="line">	</span><br><span class="line">	exit</span><br><span class="line">	main endp</span><br><span class="line">	end main</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">include irvine32.inc
+.data
+	dat byte 10 dup(?)
+	count dword ?
+.code
+main proc
+	mov edi,0
+	lea edx,dat
+	mov ecx,10
+	call readstring
+	mov count,eax
+	mov esi,0
+ 
+again:
+	mov ecx,esi
+	cmp dat[ecx],61h
+	jnz next
+	inc ecx
+	cmp dat[ecx],62h
+	jnz next
+	inc ecx
+	cmp dat[ecx],63h
+	jnz next
+	inc edi
+	jmp pt
+next:
+	inc esi
+	cmp esi,count
+	jnz again
+pt:
+	mov eax,edi
+	call writeint
+	
+	exit
+	main endp
+	end main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -904,7 +1115,7 @@
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
                                             class="white-color">
-                                            3.2k
+                                            2.7k
                                         </span>&nbsp;字
                                         
                                             
@@ -931,7 +1142,7 @@
                                                                             
                                                                                     <br>
                                                                                     
-                                                                                            #running-time
+                                                                                         
                     </div>
                     <div class="col s12 m4 l4 social-link social-statis">
     <a href="https://github.com/FZUlsy" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
@@ -1148,6 +1359,8 @@ $(function () {
                                                                                                                             type="module"></script>
                                                                                                                         
 
-                <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+                </body>
+                <!--<script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>  -->
+
 
 </html>

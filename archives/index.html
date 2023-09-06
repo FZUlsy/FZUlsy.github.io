@@ -7,6 +7,7 @@
 
 
 <head>
+    
     <meta charset="utf-8">
     <meta name="keywords" content="归档, Lurume">
     <meta name="description" content="这是一位FZUer的个人博客">
@@ -30,6 +31,8 @@
     <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <link rel="stylesheet" type="text/css" href="/css/loading.css">
+
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
@@ -49,6 +52,30 @@
             
 
                 <body>
+                    
+    <div id="loading-box">
+      <div class="loading-left-bg"></div>
+      <div class="loading-right-bg"></div>
+      <div class="spinner-box">
+        <div class="configure-border-1">
+          <div class="configure-core"></div>
+        </div>
+        <div class="configure-border-2">
+          <div class="configure-core"></div>
+        </div>
+        <div class="loading-word">加载中...</div>
+      </div>
+    </div>
+    <!-- 页面加载动画 -->
+    <script>
+      $(document).ready(function () {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      })
+    </script>
+  
+  
+
                     <svg aria-hidden="true" style="position: absolute; overflow: hidden; width: 0; height: 0">
                         <symbol id="icon-sun" viewBox="0 0 1024 1024">
                           <path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path>
@@ -376,7 +403,13 @@
                                     
 删除一批数据中的重复数据，删除后的一批数据是互不相同的。
 
-123456789101112131415161718192021222324252627282930313233343536include irvine32.inc.data	
+include irvine32.inc
+.data
+	dat word 1,2,4,3,2,1
+	p word 6 dup(?)
+.code
+main proc
+	mov ec
                                 
                             </div>
                             <div class="publish-info">
@@ -464,55 +497,6 @@
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/2023/09/06/7-1-zi-fu-chuan-guan-jian-zi-de-san-lie-ying-she/">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="7-1 字符串关键字的散列映射">
-                                
-                                <span class="card-title">7-1 字符串关键字的散列映射</span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    给定一系列由大写英文字母组成的字符串关键字和素数P，用移位法定义的散列函数H(Key)将关键字Key中的最后3个字符映射为整数，每个字符占5位；再用除留余数法将整数映射到长度为P的散列表中。例如将字符串AZDEG插入长度为1009的散列表中
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2023-09-06
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-user fa-fw"></i>
-                                    Lurume
-                                    
-                                </span>
-                            </div>
-                        </div>
-
-                        
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>06</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
                         <a href="/2023/09/06/yi-ge-zi-dong-tian-xie-wen-juan-xiao-cheng-xu/">
                             <div class="card-image">
                                 
@@ -525,7 +509,12 @@
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    12345678910111213141516171819202122232425262728293031# -*- coding = utf-8 -*-# @Time : 2022/11/2 12:39# @Author : Lurume
+                                    # -*- coding = utf-8 -*-
+# @Time : 2022/11/2 12:39
+# @Author : Lurume
+# @File : 自动填写（edge.py
+# @Software : PyCharm
+impor
                                 
                             </div>
                             <div class="publish-info">
@@ -626,7 +615,7 @@
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
                                             class="white-color">
-                                            3.2k
+                                            2.7k
                                         </span>&nbsp;字
                                         
                                             
@@ -653,7 +642,7 @@
                                                                             
                                                                                     <br>
                                                                                     
-                                                                                            #running-time
+                                                                                         
                     </div>
                     <div class="col s12 m4 l4 social-link social-statis">
     <a href="https://github.com/FZUlsy" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
@@ -870,6 +859,8 @@ $(function () {
                                                                                                                             type="module"></script>
                                                                                                                         
 
-                <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+                </body>
+                <!--<script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>  -->
+
 
 </html>

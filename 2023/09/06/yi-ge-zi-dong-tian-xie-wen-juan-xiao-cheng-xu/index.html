@@ -7,6 +7,7 @@
 
 
 <head>
+    
     <meta charset="utf-8">
     <meta name="keywords" content="一个自动填写问卷小程序, Lurume">
     <meta name="description" content="这是一位FZUer的个人博客">
@@ -30,6 +31,8 @@
     <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <link rel="stylesheet" type="text/css" href="/css/loading.css">
+
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
@@ -49,6 +52,30 @@
             
 
                 <body>
+                    
+    <div id="loading-box">
+      <div class="loading-left-bg"></div>
+      <div class="loading-right-bg"></div>
+      <div class="spinner-box">
+        <div class="configure-border-1">
+          <div class="configure-core"></div>
+        </div>
+        <div class="configure-border-2">
+          <div class="configure-core"></div>
+        </div>
+        <div class="loading-word">加载中...</div>
+      </div>
+    </div>
+    <!-- 页面加载动画 -->
+    <script>
+      $(document).ready(function () {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loading-box').classList.add("loaded")
+      })
+    </script>
+  
+  
+
                     <svg aria-hidden="true" style="position: absolute; overflow: hidden; width: 0; height: 0">
                         <symbol id="icon-sun" viewBox="0 0 1024 1024">
                           <path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path>
@@ -448,7 +475,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    284
+                    250
                 </div>
                 
 
@@ -478,7 +505,37 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding = utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time : 2022/11/2 12:39</span></span><br><span class="line"><span class="comment"># @Author : Lurume</span></span><br><span class="line"><span class="comment"># @File : 自动填写（edge.py</span></span><br><span class="line"><span class="comment"># @Software : PyCharm</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"></span><br><span class="line">url = <span class="built_in">str</span>(<span class="built_in">input</span>(<span class="string">&#x27;输入：&#x27;</span>))<span class="comment"># 输入问卷网址</span></span><br><span class="line">option = webdriver.EdgeOptions()</span><br><span class="line">option.add_argument(<span class="string">&#x27;user-agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.26&quot;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">option.add_argument(<span class="string">&#x27;--disable-blink-features=AutomationControlled&#x27;</span>)</span><br><span class="line"><span class="comment">#option.add_experimental_option(&#x27;excludeSwitches&#x27;, [&#x27;enable-automation&#x27;])</span></span><br><span class="line">option.add_experimental_option(<span class="string">&#x27;useAutomationExtension&#x27;</span>, <span class="literal">False</span>)</span><br><span class="line">driver = webdriver.Edge(options=option)</span><br><span class="line">driver.get(url)</span><br><span class="line">time.sleep(<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">driver.find_elements(By.CLASS_NAME, <span class="string">&#x27;ws-textarea__inner&#x27;</span>)[<span class="number">0</span>].send_keys(<span class="string">&quot;***&quot;</span>)       <span class="comment"># 姓名</span></span><br><span class="line">driver.find_elements(By.CLASS_NAME, <span class="string">&#x27;ws-textarea__inner&#x27;</span>)[<span class="number">1</span>].send_keys(<span class="string">&quot;15******75&quot;</span>)<span class="comment"># 填写电话号码</span></span><br><span class="line">driver.find_elements(By.CLASS_NAME, <span class="string">&#x27;ws-textarea__inner&#x27;</span>)[<span class="number">2</span>].send_keys(<span class="string">&quot;10******1&quot;</span>) <span class="comment"># 学号</span></span><br><span class="line">driver.find_elements(By.CLASS_NAME, <span class="string">&#x27;ws-textarea__inner&#x27;</span>)[<span class="number">3</span>].send_keys(<span class="string">&quot;20*******2&quot;</span>)<span class="comment"># QQ号</span></span><br><span class="line"></span><br><span class="line">button = driver.find_elements(By.CLASS_NAME, <span class="string">&#x27;ws-radio__input&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">driver.execute_script(<span class="string">&quot;arguments[0].click();&quot;</span>, button) <span class="comment"># 勾选按钮</span></span><br><span class="line"></span><br><span class="line">bt = driver.find_elements(By.CLASS_NAME, <span class="string">&#x27;ws-radio__input&#x27;</span>)[-<span class="number">1</span>]</span><br><span class="line">driver.execute_script(<span class="string">&quot;arguments[0].click();&quot;</span>, bt)</span><br></pre></td></tr></table></figure>
+                <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># -*- coding = utf-8 -*-</span>
+<span class="token comment"># @Time : 2022/11/2 12:39</span>
+<span class="token comment"># @Author : Lurume</span>
+<span class="token comment"># @File : 自动填写（edge.py</span>
+<span class="token comment"># @Software : PyCharm</span>
+<span class="token keyword">import</span> time
+
+<span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
+<span class="token keyword">from</span> selenium<span class="token punctuation">.</span>webdriver<span class="token punctuation">.</span>common<span class="token punctuation">.</span>by <span class="token keyword">import</span> By
+
+url <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'输入：'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment"># 输入问卷网址</span>
+option <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>EdgeOptions<span class="token punctuation">(</span><span class="token punctuation">)</span>
+option<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.26"'</span><span class="token punctuation">)</span>
+
+option<span class="token punctuation">.</span>add_argument<span class="token punctuation">(</span><span class="token string">'--disable-blink-features=AutomationControlled'</span><span class="token punctuation">)</span>
+<span class="token comment">#option.add_experimental_option('excludeSwitches', ['enable-automation'])</span>
+option<span class="token punctuation">.</span>add_experimental_option<span class="token punctuation">(</span><span class="token string">'useAutomationExtension'</span><span class="token punctuation">,</span> <span class="token boolean">False</span><span class="token punctuation">)</span>
+driver <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Edge<span class="token punctuation">(</span>options<span class="token operator">=</span>option<span class="token punctuation">)</span>
+driver<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.1</span><span class="token punctuation">)</span>
+
+driver<span class="token punctuation">.</span>find_elements<span class="token punctuation">(</span>By<span class="token punctuation">.</span>CLASS_NAME<span class="token punctuation">,</span> <span class="token string">'ws-textarea__inner'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>send_keys<span class="token punctuation">(</span><span class="token string">"***"</span><span class="token punctuation">)</span>       <span class="token comment"># 姓名</span>
+driver<span class="token punctuation">.</span>find_elements<span class="token punctuation">(</span>By<span class="token punctuation">.</span>CLASS_NAME<span class="token punctuation">,</span> <span class="token string">'ws-textarea__inner'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>send_keys<span class="token punctuation">(</span><span class="token string">"15******75"</span><span class="token punctuation">)</span><span class="token comment"># 填写电话号码</span>
+driver<span class="token punctuation">.</span>find_elements<span class="token punctuation">(</span>By<span class="token punctuation">.</span>CLASS_NAME<span class="token punctuation">,</span> <span class="token string">'ws-textarea__inner'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>send_keys<span class="token punctuation">(</span><span class="token string">"10******1"</span><span class="token punctuation">)</span> <span class="token comment"># 学号</span>
+driver<span class="token punctuation">.</span>find_elements<span class="token punctuation">(</span>By<span class="token punctuation">.</span>CLASS_NAME<span class="token punctuation">,</span> <span class="token string">'ws-textarea__inner'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span>send_keys<span class="token punctuation">(</span><span class="token string">"20*******2"</span><span class="token punctuation">)</span><span class="token comment"># QQ号</span>
+
+button <span class="token operator">=</span> driver<span class="token punctuation">.</span>find_elements<span class="token punctuation">(</span>By<span class="token punctuation">.</span>CLASS_NAME<span class="token punctuation">,</span> <span class="token string">'ws-radio__input'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+driver<span class="token punctuation">.</span>execute_script<span class="token punctuation">(</span><span class="token string">"arguments[0].click();"</span><span class="token punctuation">,</span> button<span class="token punctuation">)</span> <span class="token comment"># 勾选按钮</span>
+
+bt <span class="token operator">=</span> driver<span class="token punctuation">.</span>find_elements<span class="token punctuation">(</span>By<span class="token punctuation">.</span>CLASS_NAME<span class="token punctuation">,</span> <span class="token string">'ws-radio__input'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+driver<span class="token punctuation">.</span>execute_script<span class="token punctuation">(</span><span class="token string">"arguments[0].click();"</span><span class="token punctuation">,</span> bt<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>以上代码是我在去年抢核酸志愿者时，利用selenium加上当时所掌握的一点点前端知识编写的，非常的简陋，但这是我第一次将代码实际应用起来，纪念一下。</p>
 
@@ -590,13 +647,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/09/06/7-1-zi-fu-chuan-guan-jian-zi-de-san-lie-ying-she/">
+                <a href="/2023/09/06/2023-chun-hui-bian-shi-yan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="7-1 字符串关键字的散列映射">
+                        <img src="/medias/featureimages/5.png" class="responsive-img" alt="2023春汇编实验">
                         
-                        <span class="card-title">7-1 字符串关键字的散列映射</span>
+                        <span class="card-title">2023春汇编实验</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -890,7 +947,7 @@
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
                                             class="white-color">
-                                            3.2k
+                                            2.7k
                                         </span>&nbsp;字
                                         
                                             
@@ -917,7 +974,7 @@
                                                                             
                                                                                     <br>
                                                                                     
-                                                                                            #running-time
+                                                                                         
                     </div>
                     <div class="col s12 m4 l4 social-link social-statis">
     <a href="https://github.com/FZUlsy" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
@@ -1134,6 +1191,8 @@ $(function () {
                                                                                                                             type="module"></script>
                                                                                                                         
 
-                <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+                </body>
+                <!--<script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>  -->
+
 
 </html>
