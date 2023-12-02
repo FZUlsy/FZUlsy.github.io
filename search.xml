@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>关于半夜IDEA突发恶疾</title>
+      <link href="/2023/12/03/guan-yu-ban-ye-idea-tu-fa-e-ji/"/>
+      <url>/2023/12/03/guan-yu-ban-ye-idea-tu-fa-e-ji/</url>
+      
+        <content type="html"><![CDATA[<p>如标题，大半夜的打开idea想要看一个项目（帮舍友解决问题），突然发现自己的idea.exe文件不见了！！！</p><p>人都傻了，不知道是不是哪个安全机制把他当病毒清理了，真服了，重装后惊喜发现因为有账号同步，本来下载的插件不需要自己手动重新下载，但是有个致命的问题是——我在删除idea 的时候，我的maven的仓库也莫名被删除了，导致maven找不到仓库没地方下载依赖和插件。我新创了之后还是不行，报的错误也不明确，最后找到了一篇教恢复maven仓库的博客救了我的命。具体教学如下：</p><p>运行cmd，然后执行 mvn help:system mvn将重新下载本地仓库</p><p>完成后运行mvn help:effective-settings 查看仓库位置</p><p>ps：需要注意的是这里的cmd是需要在项目文件的目录下运行。</p><p>属实是吓鼠我了。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Spring Boot笔记</title>
       <link href="/2023/10/08/spring-boot-bi-ji/"/>
       <url>/2023/10/08/spring-boot-bi-ji/</url>
